@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void findNumbers(vector<double>& v, int sum, vector<vector<double> >& res, vector<double>& r, int i)
+{
+    
+    if (sum == 0)
+    {
+        res.push_back(r);
+        return;
+    }
+ 
+    while (i < v.size() && sum - v[i] >= 0)
+    {
+        r.push_back(v[i]);
+
+        findNumbers(v, sum - v[i], res, r, i);
+        i++;
+
+        r.pop_back();
+    }
+}
+
+vector<vector<double>> pairs(vector<double> &v, int sum)
+{
+    sort(v.begin(),v.end());
+    
+    vector<double> r;
+    vector<vector<double> > res;
+    findNumbers(v, sum, res, r, 0);
+ 
+    return res;    
+}
+
+
+
+int main()
+{
+    vector<double> v = {26,20.5,36,10.5,18};
+    
+    int sum;
+    cin>>sum;
+    
+    vector<vector<double>> pai = pairs(v,sum);
+    
+    for(auto it:pai)
+    {
+        for(auto itr:it)
+        cout<<itr<<" ";
+        
+        cout<<endl;
+    }
+
+    return 0;
+}
